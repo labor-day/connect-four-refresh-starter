@@ -74,7 +74,7 @@ class Screen {
       } else if (!Screen.commands.hasOwnProperty(key.name)) {
         Screen.render();
         console.log(`${key.name} not supported.`);
-        Screen.printCommands();
+        //Screen.printCommands();
       } else {
         Screen.render();
         Screen.commands[key.name].execute();
@@ -165,6 +165,7 @@ class Screen {
     console.log("");
 
     console.log(Screen.message);
+    Screen.printCommands();
 
   }
 
@@ -215,6 +216,7 @@ class Screen {
     }
 
     Screen.backgroundColors[row][col] = code;
+    Screen.render();
   }
 
   static setMessage(msg) {
