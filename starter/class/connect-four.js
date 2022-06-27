@@ -22,8 +22,8 @@ class ConnectFour {
 
     // Replace this with real commands
     Screen.addCommand("return", "place piece", ConnectFour.place.bind(this));
-    Screen.addCommand("up", "move up", ConnectFour.moveUp.bind(this));
-    Screen.addCommand("down", "move down", ConnectFour.moveDown.bind(this));
+    //Screen.addCommand("up", "move up", ConnectFour.moveUp.bind(this));
+    //Screen.addCommand("down", "move down", ConnectFour.moveDown.bind(this));
     Screen.addCommand("left", "move left", ConnectFour.moveLeft.bind(this));
     Screen.addCommand("right", "move right", ConnectFour.moveRight.bind(this));
 
@@ -35,17 +35,20 @@ class ConnectFour {
   // Remove this
   static place() {
 
-    if (Screen.grid[this.cursor.row][this.cursor.col] === " ") {
+    if (Screen.grid[0][this.cursor.col] === " ") {
+      let floor = findFloor(Screen.grid, this.cursor.col);
 
-      Screen.setGrid(this.cursor.row, this.cursor.col, this.playerTurn);
+      Screen.setBackgroundColor(Screen.getPrevious().row, Screen.getPrevious().col, "black");
 
+      Screen.setGrid(floor, this.cursor.col, this.playerTurn);
+      Screen.setPrevious(floor, this.cursor.col);
 
       if (this.playerTurn === "O") {
         this.playerTurn = "X";
       } else {this.playerTurn = "O"}
 
       Screen.message = `It is ${this.playerTurn}'s turn`;
-      Screen.setBackgroundColor(this.cursor.row, this.cursor.col, "green");
+      Screen.setBackgroundColor(floor, this.cursor.col, "green");
 
       if (ConnectFour.checkWin(Screen.grid)) {
          ConnectFour.endGame(ConnectFour.checkWin(Screen.grid));
@@ -61,12 +64,12 @@ class ConnectFour {
 
   }
 
-  static moveUp() {
-    this.cursor.up();
-  }
-  static moveDown() {
-    this.cursor.down();
-  }
+  // static moveUp() {
+  //   this.cursor.up();
+  // }
+  // static moveDown() {
+  //   this.cursor.down();
+  // }
   static moveLeft() {
     this.cursor.left();
   }
@@ -218,15 +221,26 @@ let checkRowFull = function(row) {
     );
 }
 
-let grid1 = [
-['X','O','X',' ','X','X','X'],
-['X','O','X','O','X','O','X'],
-['O','X','O','X','O','X','O'],
-['O','X','O','X','O','X','O'],
-['O','X','O','X','O','X','O'],
-['X','O','X','O','X','O','X']
-];
+let findFloor = function(grid, col) {
+  for (let i = 0; i < grid.length; i++) {
+    console.log(grid[i][col]);
+    if (grid[i][col] !== " ") {
+      return (i - 1);
+    }
 
-console.log(checkGridFull(grid1));
+  }
+  return grid.length - 1;
+}
+
+let grid1 = [
+[' ',' ',' ',' ',' ',' ',' '],
+[' ',' ',' ',' ',' ',' ',' '],
+[' ',' ',' ',' ',' ',' ',' '],
+[' ',' ',' ',' ',' ',' ',' '],
+[' ',' ',' ',' ',' ',' ',' '],
+[' ',' ',' ',' ',' ',' ',' ']
+]
+
+console.log(findFloor(grid1, 0));
 
 module.exports = ConnectFour;

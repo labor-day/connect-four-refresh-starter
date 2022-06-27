@@ -23,21 +23,21 @@ class Cursor {
     Screen.render();
   }
 
-  up() {
-    if (this.row > 0) {
-      this.resetBackgroundColor();
-      this.row--;
-      this.setBackgroundColor();
-    }
-  }
+  // up() {
+  //   if (this.row > 0) {
+  //     this.resetBackgroundColor();
+  //     this.row--;
+  //     this.setBackgroundColor();
+  //   }
+  // }
 
-  down() {
-    if (this.row < this.numRows - 1) {
-      this.resetBackgroundColor();
-      this.row++;
-      this.setBackgroundColor();
-    }
-  }
+  // down() {
+  //   if (this.row < this.numRows - 1) {
+  //     this.resetBackgroundColor();
+  //     this.row++;
+  //     this.setBackgroundColor();
+  //   }
+  // }
 
   left() {
     // Move cursor left

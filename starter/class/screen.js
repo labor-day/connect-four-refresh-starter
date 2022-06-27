@@ -3,6 +3,11 @@ const Command = require('./command');
 
 class Screen {
 
+  static previousPlacement = {
+    row: 0,
+    col: 0
+  }
+
   static numCols = 0;
   static numRows = 0;
   static grid = [];
@@ -23,6 +28,15 @@ class Screen {
   static commands = {};
 
   static initialized = false;
+
+  static getPrevious() {
+    return this.previousPlacement;
+  }
+
+  static setPrevious(row, col) {
+    this.previousPlacement.row = row,
+    this.previousPlacement.col = col
+  }
 
   static initialize(numRows, numCols) {
     Screen.numRows = numRows;
