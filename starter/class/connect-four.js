@@ -22,8 +22,6 @@ class ConnectFour {
 
     // Replace this with real commands
     Screen.addCommand("return", "place piece", ConnectFour.place.bind(this));
-    //Screen.addCommand("up", "move up", ConnectFour.moveUp.bind(this));
-    //Screen.addCommand("down", "move down", ConnectFour.moveDown.bind(this));
     Screen.addCommand("left", "move left", ConnectFour.moveLeft.bind(this));
     Screen.addCommand("right", "move right", ConnectFour.moveRight.bind(this));
 
@@ -36,12 +34,15 @@ class ConnectFour {
   static place() {
 
     if (Screen.grid[0][this.cursor.col] === " ") {
+      //find lowest available space in column
       let floor = findFloor(Screen.grid, this.cursor.col);
 
+      //update bg color of last placement
       Screen.setBackgroundColor(Screen.getPrevious().row, Screen.getPrevious().col, "black");
 
+      //place move at lowest available space in col
       Screen.setGrid(floor, this.cursor.col, this.playerTurn);
-      Screen.setPrevious(floor, this.cursor.col);
+      Screen.setPrevious(floor, this.cursor.col); //update most recent placement
 
       if (this.playerTurn === "O") {
         this.playerTurn = "X";
@@ -61,15 +62,8 @@ class ConnectFour {
     }
 
 
-
   }
 
-  // static moveUp() {
-  //   this.cursor.up();
-  // }
-  // static moveDown() {
-  //   this.cursor.down();
-  // }
   static moveLeft() {
     this.cursor.left();
   }
